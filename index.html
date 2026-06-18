@@ -10,8 +10,8 @@
   --bg: #F2F2F0;
   --surface: #FAFAF8;
   --white: #FFFFFF;
-  --border: #E0E0DC;
-  --border-strong: #C8C8C4;
+  --border: #F3C5DA;
+  --border-strong: #E8006A;
   --text: #1C1C1A;
   --text-2: #5A5A56;
   --text-3: #9A9A96;
@@ -99,7 +99,7 @@ header {
 }
 
 .nav-tab:hover { color: var(--white); }
-.nav-tab.active { color: var(--white); border-bottom-color: var(--white); }
+.nav-tab.active { color: var(--pink); border-bottom-color: var(--pink); }
 
 /* ── PAGE CONTAINER ── */
 .page {
@@ -317,7 +317,7 @@ header {
 .highlight-red { background: var(--red-soft); border-left: 3px solid var(--red); }
 .highlight-yellow { background: var(--yellow-soft); border-left: 3px solid #D4900A; }
 .highlight-green { background: var(--green-soft); border-left: 3px solid var(--green); }
-.highlight-blue { background: var(--blue-soft); border-left: 3px solid var(--blue); }
+.highlight-pink { background: var(--pink-soft); border-left: 5px solid var(--pink); }
 
 .highlight h4 {
   font-size: 13px;
@@ -461,10 +461,11 @@ header {
 
 .enps-segments {
   flex: 1;
-  height: 8px;
-  border-radius: 4px;
+  height: 20px;
+  border-radius: 6px;
   overflow: hidden;
   display: flex;
+  position: relative;
 }
 
 .seg-p { background: #1A7840; }
@@ -472,9 +473,9 @@ header {
 .seg-d { background: #C42020; }
 
 .enps-prev {
-  font-size: 11px;
+  font-size: 9px;
   color: var(--text-3);
-  width: 40px;
+  width: 50px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -744,9 +745,9 @@ header {
 
 .dim-tab:hover { background: var(--bg); }
 .dim-tab.active {
-  background: var(--text);
+  background: var(--pink);
   color: var(--white);
-  border-color: var(--text);
+  border-color: var(--pink);
 }
 
 .dim-panel { display: none; }
@@ -832,9 +833,9 @@ header {
 .filter-pill:hover { border-color: var(--border-strong); color: var(--text); }
 
 .filter-pill.active {
-  background: var(--text);
+  background: var(--pink);
   color: var(--white);
-  border-color: var(--text);
+  border-color: var(--pink);
 }
 
 /* ── ORG INSIGHT CARDS ── */
@@ -1055,8 +1056,149 @@ header {
 
 .contrast-body strong { color: var(--text); font-weight: 600; }
 
+/* ── FLOWCHART (CICLO DE CLIMA) ── */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.flow-step {
+  flex: 1;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flow-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--r) var(--r) 0 0;
+}
+
+.flow-step.pulse::before { background: var(--pink); }
+.flow-step.clima::before { background: var(--blue); }
+
+.flow-period {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.flow-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.flow-step.pulse .flow-tag { background: var(--pink-soft); color: var(--pink); }
+.flow-step.clima .flow-tag { background: var(--blue-soft); color: var(--blue); }
+
+.flow-title {
+  font-family: 'Rethink Sans', sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.flow-desc {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+.flow-arrow {
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--border-strong);
+  font-weight: 700;
+}
+
+/* ── PAGE FOOTER NAV ── */
+.page-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 24px;
+  border: none;
+  background: var(--text);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.btn-next:hover { opacity: 0.88; transform: translateX(2px); }
+.btn-next .next-label { font-weight: 400; color: rgba(255,255,255,0.65); }
+
+/* ── FULLSCREEN BUTTON ── */
+.btn-fullscreen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  background: var(--white);
+  color: var(--text-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-fullscreen:hover { background: var(--bg); color: var(--text); border-color: var(--text-3); }
+
+/* ── ESTADO "APERTADO" DOS BOTÕES (rosa) ── */
+.btn-next:active,
+.btn-fullscreen:active {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .flow { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); flex-basis: 28px; }
   header, .nav-tabs { padding: 0 20px; }
   .page { padding: 24px 20px 48px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
@@ -1078,7 +1220,12 @@ header {
 <div class="logo">
   <img src="https://yandeh.com/assets/yandeh-logo-DDlTLquC.svg" alt="Yandeh Logo">
 </div>
-  <span class="header-badge">Pulse H1 2026</span>
+  <div class="header-right">
+    <span class="header-badge">Pulse H1 2026</span>
+    <button class="btn-fullscreen" onclick="toggleFullscreen()">
+      <span id="fs-icon">⛶</span><span id="fs-label">Tela cheia</span>
+    </button>
+  </div>
 </header>
 
 <!-- NAV TABS -->
@@ -1096,6 +1243,33 @@ header {
 <div id="page-contexto" class="page active">
   <h1 class="page-title">Por que clima é <em>pauta estratégica</em></h1>
   <p class="page-sub">Pulse realizada de 09 a 16 de março de 2026, com foco em Alta Liderança, Desempenho, Comunicação e Pessoas e Cultura.</p>
+  
+  <div class="section-head" style="margin-top:32px;margin-bottom:14px;">
+    <h3>Como medimos clima ao longo do ano</h3>
+    <p>Três instrumentos complementares formam o ciclo anual de escuta da Yandeh.</p>
+  </div>
+  <div class="flow" style="margin-bottom:24px;">
+    <div class="flow-step pulse">
+      <div class="flow-period">1º Semestre · Março</div>
+      <span class="flow-tag">Pulse</span>
+      <div class="flow-title">Pulse H1</div>
+      <div class="flow-desc">Pesquisa rápida e com menor quantidade de dimensões. Para identificar tendências e pontos de atenção no início do ano.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step clima">
+      <div class="flow-period">Meio do Ano · Julho</div>
+      <span class="flow-tag">Pesquisa de Clima</span>
+      <div class="flow-title">Clima Completo</div>
+      <div class="flow-desc">Diagnóstico aprofundado de toda a organização. Cerca de 35 perguntas, abordando 8 dimensões.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step pulse">
+      <div class="flow-period">2º Semestre · Outubro</div>
+      <span class="flow-tag">Pulse</span>
+      <div class="flow-title">Pulse H2</div>
+      <div class="flow-desc">Nova leitura rápida que fecha o ciclo, acompanha a evolução e prepara o planejamento do ano seguinte.</div>
+    </div>
+  </div>
 
   <!-- Versão reduzida do contexto -->
   <div class="context-box">
@@ -1107,27 +1281,23 @@ header {
     <div class="card">
       <div class="stat-label" style="margin-bottom:10px;">Headcount recente</div>
       <div style="font-family:'Rethink Sans',sans-serif;font-size:36px;line-height:1;">51%</div>
-      <div style="font-size:12px;color:var(--text-3);margin-top:6px;">dos elegíveis com menos de 1 ano de Yandeh. O risco de turnover precoce é real e mensurável.</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:6px;">dos elegíveis possuem menos de 1 ano de Yandeh.</div>
     </div>
     <div class="card">
       <div class="stat-label" style="margin-bottom:10px;">Reestruturações em curso</div>
       <div style="font-family:'Rethink Sans',sans-serif;font-size:36px;line-height:1;">3</div>
-      <div style="font-size:12px;color:var(--text-3);margin-top:6px;">áreas passaram por mudanças de liderança recentes: Girotrade, Girotrade CD e Business Solutions.</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:6px;">áreas passaram por mudanças de liderança recentes: Girotrade, Girotrade CD, Business Solutions, times de Tech Solutions (quais), SAC e Finanças</div>
     </div>
     <div class="card">
-      <div class="stat-label" style="margin-bottom:10px;">Custo de inação</div>
+      <div class="stat-label" style="margin-bottom:10px;">Percentual de Turnover</div>
       <div style="font-family:'Rethink Sans',sans-serif;font-size:36px;line-height:1;">+23%</div>
       <div style="font-size:12px;color:var(--text-3);margin-top:6px;">colaboradores engajados entregam mais (Gallup, 2023). <br>Clima impacta resultado diretamente.</div>
     </div>
   </div>
 
-  <div class="highlight highlight-blue">
-    <h4>Metodologia desta Pulse</h4>
-    <div style="display:flex;flex-direction:column;gap:32px;font-size:13px;color:var(--text-2);flex-wrap:wrap;">
-      <div><strong>9 perguntas</strong>: 7 múltipla escolha, 1 qualitativa e 1 e-NPS</div>
-      <div><strong>4 dimensões</strong>: Alta Liderança, Desempenho, Comunicação, Pessoas e Cultura</div>
-      <div><strong>Escala Likert</strong>: Favorabilidade positiva ou negativa</div>
-    </div>
+
+  <div class="page-nav">
+    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Snapshot →</button>
   </div>
 </div>
 
@@ -1135,8 +1305,55 @@ header {
      PAGE 02 — SNAPSHOT
 ══════════════════════════════════════ -->
 <div id="page-snapshot" class="page">
-  <h1 class="page-title">Os 3 números <em>que importam</em></h1>
-  <p class="page-sub">Visão consolidada dos principais indicadores do ciclo.</p>
+  <h1 class="page-title">Pulse H1 2026 - Metodologia</h1>
+  <p class="page-sub">Visão consolidada dos principais indicadores do ciclo, o que perguntamos e o que os números mostram.</p>
+
+  <div class="section-head" style="margin-top:28px;">
+    <h3>Como foi a metodologia da Pulse?</h3>
+    <p>9 perguntas separadas em 4 dimensões: perguntas de múltipla escolha e e-NPS que compõem os índices desta Pulse.</p>
+  </div>
+  <div class="card" style="margin-bottom:28px;">
+    <div class="dim-tabs" id="dim-tabs">
+      <div class="dim-tab active" onclick="showDim('lideranca', this)">Alta Liderança</div>
+      <div class="dim-tab" onclick="showDim('desempenho', this)">Desempenho</div>
+      <div class="dim-tab" onclick="showDim('comunicacao', this)">Comunicação</div>
+      <div class="dim-tab" onclick="showDim('pessoas', this)">Pessoas e Cultura</div>
+      <div class="dim-tab" onclick="showDim('enps', this)">e-NPS</div>
+    </div>
+    <div class="dim-panel active" id="dim-panel-lideranca">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2);line-height:1.6;">Confio nas decisões e direcionamentos da liderança executiva (diretor, head, gerente executivo) da Yandeh.</li>
+        <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2);line-height:1.6;">A liderança executiva (diretor, head, gerente executivo) da Yandeh é acessível aos colaboradores.</li>
+        <li style="padding:10px 0;font-size:13px;color:var(--text-2);line-height:1.6;">A liderança executiva (diretor, head, gerente executivo) da minha área apoia a equipe nas tomadas de decisão e soluções de problemas quando necessário.</li>
+      </ul>
+    </div>
+    <div class="dim-panel" id="dim-panel-desempenho">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2);line-height:1.6;">Entendo como o meu trabalho impacta nas metas da Yandeh.</li>
+        <li style="padding:10px 0;font-size:13px;color:var(--text-2);line-height:1.6;">Entendo como acontece a Avaliação de Desempenho na Yandeh e como sou avaliado.</li>
+      </ul>
+    </div>
+    <div class="dim-panel" id="dim-panel-comunicacao">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:10px 0;font-size:13px;color:var(--text-2);line-height:1.6;">Os rituais da Yandeh, como YH Junto! e Summit, me ajudam a entender o posicionamento da empresa e quais são os próximos passos.</li>
+      </ul>
+    </div>
+    <div class="dim-panel" id="dim-panel-pessoas">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:10px 0;font-size:13px;color:var(--text-2);line-height:1.6;">O time de Pessoas & Cultura fornece orientações claras, apoia nas demandas do dia a dia e atua com iniciativa na condução dos temas.</li>
+      </ul>
+    </div>
+    <div class="dim-panel" id="dim-panel-enps">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:10px 0;font-size:13px;color:var(--text-2);line-height:1.6;">Eu indico a Yandeh como um bom lugar para se trabalhar.</li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="context-box" style="margin-bottom:28px;">
+    <p>Além da pesquisa, foram realizados bate-papos com todos os colaboradores das áreas, com o objetivo de entender em profundidade a queda nos pontos de e-NPS e mapear a dimensão mais crítica e a mais forte apontadas pela pesquisa.</p>
+    <p>Os resultados foram compartilhados previamente com todas as lideranças, em um bate-papo inicial sobre os possíveis fatores que influenciaram as respostas dos times.</p>
+  </div>
 
   <div class="grid-3" style="margin-bottom:28px;">
     <div class="stat-card">
@@ -1252,10 +1469,14 @@ header {
     </div>
     <div class="part-row">
       <div class="part-name">Tech Solutions</div>
-      <div class="part-pct" style="color:var(--text-2)">66%</div>
-      <div class="part-bar"><div class="part-bar-fill" style="width:66%;background:#999"></div></div>
+      <div class="part-pct" >66%</div>
+      <div class="part-bar"><div class="part-bar-fill" style="width:66%"></div></div>
       <div class="part-nums">62 de 93</div>
     </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Forças →</button>
   </div>
 </div>
 
@@ -1263,7 +1484,7 @@ header {
      PAGE 03 — FORÇAS
 ══════════════════════════════════════ -->
 <div id="page-forcas" class="page">
-  <h1 class="page-title">O que está <em>sustentando</em> a empresa</h1>
+  <h1 class="page-title">O que os números <em>mostram</em></h1>
   <p class="page-sub">Dimensões e áreas com desempenho acima da média, referências a preservar.</p>
 
   <div class="grid-3" style="margin-bottom:16px;">
@@ -1298,50 +1519,54 @@ header {
       <div class="enps-name" style="font-weight:600;">Yandeh</div>
       <div class="enps-score">43,3</div>
       <div class="enps-segments"><div class="seg-p" style="width:59%"></div><div class="seg-n" style="width:26%"></div><div class="seg-d" style="width:15%"></div></div>
-      <div class="enps-prev">2025: 49,1</div>
+      <div class="enps-prev">▼ -6 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">P&C</div>
       <div class="enps-score" style="color:var(--green)">89</div>
       <div class="enps-segments"><div class="seg-p" style="width:89%"></div><div class="seg-n" style="width:11%"></div><div class="seg-d" style="width:0%"></div></div>
-      <div class="enps-prev">2025: 71</div>
+      <div class="enps-prev">▲ +18 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Tech Solutions</div>
       <div class="enps-score" style="color:var(--green)">58</div>
       <div class="enps-segments"><div class="seg-p" style="width:64%"></div><div class="seg-n" style="width:30%"></div><div class="seg-d" style="width:6%"></div></div>
-      <div class="enps-prev">2025: 60</div>
+      <div class="enps-prev">▼ -2 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Abasteceshop</div>
       <div class="enps-score" style="color:var(--green)">56</div>
       <div class="enps-segments"><div class="seg-p" style="width:65%"></div><div class="seg-n" style="width:26%"></div><div class="seg-d" style="width:9%"></div></div>
-      <div class="enps-prev">2025: 53</div>
+      <div class="enps-prev">▼ -3 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Finanças</div>
       <div class="enps-score" style="color:var(--yellow)">29</div>
       <div class="enps-segments"><div class="seg-p" style="width:50%"></div><div class="seg-n" style="width:29%"></div><div class="seg-d" style="width:21%"></div></div>
-      <div class="enps-prev">2025: 13</div>
+      <div class="enps-prev">▲ +16 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Girotrade</div>
       <div class="enps-score" style="color:var(--yellow)">31</div>
       <div class="enps-segments"><div class="seg-p" style="width:58%"></div><div class="seg-n" style="width:15%"></div><div class="seg-d" style="width:27%"></div></div>
-      <div class="enps-prev">2025: 50</div>
+      <div class="enps-prev">▼ -19 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Girotrade CD</div>
       <div class="enps-score" style="color:var(--yellow)">30</div>
       <div class="enps-segments"><div class="seg-p" style="width:54%"></div><div class="seg-n" style="width:22%"></div><div class="seg-d" style="width:24%"></div></div>
-      <div class="enps-prev">2025: 33</div>
+      <div class="enps-prev">▲ +3 p.p.</div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Business Solutions</div>
       <div class="enps-score" style="color:var(--red)">8</div>
       <div class="enps-segments"><div class="seg-p" style="width:31%"></div><div class="seg-n" style="width:46%"></div><div class="seg-d" style="width:23%"></div></div>
-      <div class="enps-prev">2025: 31</div>
+      <div class="enps-prev">▼ -12 p.p.</div>
     </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Qualitativo →</button>
   </div>
 </div>
 
@@ -1393,8 +1618,9 @@ header {
     <div class="insight-card">
       <div class="insight-number">04</div>
       <div class="insight-title">Carreira e AVD</div>
-      <div class="insight-body">Pouca clareza sobre trajetória de crescimento, ausência de devolutivas individuais e percepção fraca de evolução aparecem em múltiplas áreas. O processo de avaliação existe e é claro, falta fortalecer o feedback das lideranças com foco em desenvolvimento real.</div>
+      <div class="insight-body">Pouca clareza sobre trajetória de crescimento, ausência de devolutivas individuais e percepção fraca de evolução aparecem em múltiplas áreas. O processo de avaliação existe e é claro, o ponto crítico está no cascateamento dos resultados: lideranças avaliam, mas nem sempre devolvem isso ao colaborador de forma estruturada e voltada para desenvolvimento real.</div>
       <div class="insight-tags">
+        <span class="insight-tag">Cascateamento</span>
         <span class="insight-tag">Devolutiva</span>
         <span class="insight-tag">Desenvolvimento</span>
         <span class="insight-tag">PDI</span>
@@ -1438,6 +1664,9 @@ header {
     </div>
   </div>
 
+  <div class="page-nav">
+    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Plano →</button>
+  </div>
 </div>
 <!-- ══════════════════════════════════════
      PAGE 05 — PLANO
@@ -1498,9 +1727,44 @@ function showPage(id, el) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function showDim(id, el) {
+  el.parentElement.querySelectorAll('.dim-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('[id^="dim-panel-"]').forEach(p => p.classList.remove('active'));
+  document.getElementById('dim-panel-' + id).classList.add('active');
+}
+
 function toggleAccordion(el) {
   el.classList.toggle('open');
 }
+
+function nextPage() {
+  const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+  const current = tabs.findIndex(t => t.classList.contains('active'));
+  if (current > -1 && current < tabs.length - 1) {
+    tabs[current + 1].click();
+  }
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const label = document.getElementById('fs-label');
+  const icon = document.getElementById('fs-icon');
+  if (document.fullscreenElement) {
+    label.textContent = 'Sair';
+    icon.textContent = '⛶';
+  } else {
+    label.textContent = 'Tela cheia';
+    icon.textContent = '⛶';
+  }
+});
 </script>
 </body>
 </html>
