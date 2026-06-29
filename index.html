@@ -86,6 +86,89 @@ header {
   transition: all 0.2s;
   user-select: none;
 }
+.wrapper {
+  padding: 8px 0 24px;
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.block {
+  position: relative;
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  padding: 24px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.block:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.09);
+}
+.block-step {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  opacity: .5;
+}
+.block-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.block-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+}
+.block-icon.blue   { background: #fae6fb; color: #ff0077; }
+.block-icon.green  { background: #f5e1e1; color: #6e0f0f; }
+.block-icon.purple { background: #faedfe; color: #884ab7; }
+@media (prefers-color-scheme: dark) {
+  .block-icon.blue   { background: #7c0c51; color: #f4b5dd; }
+  .block-icon.green  { background: #500808; color: #e19f9f; }
+  .block-icon.purple { background: #723489; color: #CECBF6; }
+}
+.block-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+.block-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.flow-connector {
+  flex: 0 0 40px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  opacity: .38;
+}
+.flow-connector svg { width: 24px; height: 24px; stroke: currentColor; }
+@media (max-width: 720px) {
+  .wrapper { flex-direction: column; }
+  .flow-connector { flex: 0 0 30px; transform: rotate(90deg); }
+}
+
 
 .logo{
   display:flex;
@@ -131,7 +214,7 @@ header {
 .page-sub {
   font-size: 15px;
   color: var(--text-3);
-  margin-bottom: 32px;
+  margin-bottom: 22px;
 }
 
 /* ── GRID HELPERS ── */
@@ -337,7 +420,7 @@ header {
 
 /* ── SECTION HEADER ── */
 .section-head {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .section-head h3 {
@@ -440,6 +523,7 @@ header {
   gap: 12px;
   padding: 9px 0;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
 .enps-row:last-child { border-bottom: none; }
@@ -466,6 +550,7 @@ header {
   overflow: hidden;
   display: flex;
   position: relative;
+  cursor: help;
 }
 
 .seg-p { background: #1A7840; }
@@ -475,9 +560,59 @@ header {
 .enps-prev {
   font-size: 11px;
   color: var(--text-3);
-  width: 50px;
+  width: 55px;
   text-align: right;
   flex-shrink: 0;
+}
+
+/* tooltip com nº de pessoas por segmento (aparece no hover da linha) */
+.enps-tooltip {
+  position: absolute;
+  left: 174px;
+  bottom: calc(100% - 4px);
+  z-index: 30;
+  min-width: 170px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.14);
+  padding: 10px 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease;
+  pointer-events: none;
+}
+.enps-row:hover .enps-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.enps-tt-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.enps-tt-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+.enps-tt-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.enps-tt-num {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--text);
 }
 
 /* ── RISK CARD ── */
@@ -891,7 +1026,7 @@ header {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  color: var(--text-3);
+  color: var(--orange);
   background: var(--bg);
   border-radius: 4px;
   padding: 3px 8px;
@@ -1256,7 +1391,7 @@ header {
 <nav class="nav-tabs">
   <div class="nav-tab active" onclick="showPage('contexto', this)">01 · Contexto</div>
   <div class="nav-tab" onclick="showPage('snapshot', this)">02 · Metodologia</div>
-  <div class="nav-tab" onclick="showPage('forcas', this)">03 · Forças</div>
+  <div class="nav-tab" onclick="showPage('forcas', this)">03 · Quantitativo</div>
   <div class="nav-tab" onclick="showPage('qualitativo', this)">04 · Qualitativo</div>
   <div class="nav-tab" onclick="showPage('plano', this)">05 · Plano</div>
 </nav>
@@ -1265,9 +1400,15 @@ header {
      PAGE 01 — CONTEXTO
 ══════════════════════════════════════ -->
 <div id="page-contexto" class="page active">
-  <h1 class="page-title">Por que clima é <em>pauta estratégica</em></h1>
+  <h1 class="page-title">Por que clima é <em>estratégico</em></h1>
   <p class="page-sub">Pulse realizada de 09 a 16 de março de 2026, com foco em Alta Liderança, Desempenho, Comunicação e Pessoas e Cultura.</p>
   
+  <!-- Versão reduzida do contexto -->
+  <div class="context-box">
+    <p>Crescimento, mudanças de estrutura e novas lideranças redefinem a forma como as pessoas vivenciam a organização.</p>
+    <p>Os resultados desta pesquisa oferecem uma visão clara sobre o que está fortalecendo a cultura da Yandeh e onde existem oportunidades para acelerar engajamento, retenção e desempenho coletivo.</p>
+  </div>
+
   <div class="section-head" style="margin-top:32px;margin-bottom:14px;">
     <h3>Como medimos clima ao longo do ano</h3>
     <p>Três instrumentos complementares formam o ciclo anual de escuta da Yandeh.</p>
@@ -1294,11 +1435,8 @@ header {
       <div class="flow-desc">Nova leitura rápida que fecha o ciclo, acompanha a evolução e prepara o planejamento do ano seguinte, as perguntas e dimensões abordadas provem da Pesquisa de Clima.</div>
     </div>
   </div>
-
-  <!-- Versão reduzida do contexto -->
-  <div class="context-box">
-    <p>Crescimento, mudanças de estrutura e novas lideranças redefinem a forma como as pessoas vivenciam a organização.</p>
-    <p>Os resultados desta pesquisa oferecem uma visão clara sobre o que está fortalecendo a cultura da Yandeh e onde existem oportunidades para acelerar engajamento, retenção e desempenho coletivo.</p>
+  <div class="section-head" style="margin-top:32px;margin-bottom:14px;">
+    <h3>Contexto Organizacional</h3>
   </div>
 
   <div class="grid-3" style="margin-bottom:20px;">
@@ -1309,13 +1447,13 @@ header {
     </div>
     <div class="card">
       <div class="stat-label" style="margin-bottom:10px;">Reestruturações de liderança</div>
-      <div style="font-family:'Rethink Sans',sans-serif;font-size:38px;line-height:1;">6</div>
-      <div style="font-size:14px;color:var(--text-3);margin-top:6px;">lideres (alta gestão) que saíram da Yandeh em 2026. <br> Aproximadamente 80 movimentações de gestão.</div>
+      <div style="font-family:'Rethink Sans',sans-serif;font-size:38px;line-height:1;">17</div>
+      <div style="font-size:14px;color:var(--text-3);margin-top:6px;">lideres que saíram da Yandeh em 2026. <br> Aproximadamente 80 movimentações de gestão.</div>
     </div>
     <div class="card">
       <div class="stat-label" style="margin-bottom:10px;">Percentual de Turnover</div>
-      <div style="font-family:'Rethink Sans',sans-serif;font-size:38px;line-height:1;">38%</div>
-      <div style="font-size:14px;color:var(--text-3);margin-top:6px;">O Turnover corporativo da Yandeh em 2025.<br> Olhar para o clima é uma forma de diminuir esse número</div>
+      <div style="font-family:'Rethink Sans',sans-serif;font-size:38px;line-height:1;">19,3%</div>
+      <div style="font-size:14px;color:var(--text-3);margin-top:6px;">(De janeiro a maio) <br>O Turnover corporativo da Yandeh em 2026.</div>
     </div>
   </div>
 
@@ -1332,17 +1470,72 @@ header {
   <h1 class="page-title">Pulse H1 2026 - Metodologia</h1>
   <p class="page-sub">Visão consolidada dos principais indicadores do ciclo, o que perguntamos e o que os números mostram.</p>
 
-  <div class="section-head" style="margin-top:28px;">
+ 
+  <div class="section-head" style="margin-top:18px;margin-bottom:6px;">
     <h3>Como foi a metodologia da Pulse?</h3>
     <p>9 perguntas separadas em 4 dimensões: perguntas de múltipla escolha e e-NPS que compõem os índices desta Pulse.</p>
   </div>
-  <div class="card" style="margin-bottom:28px;">
+
+ <div class="wrapper">
+
+  <div class="block">
+    <div class="block-icon blue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/>
+        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
+        <path d="M9 12l.01 0"/><path d="M13 12l2 0"/><path d="M9 16l.01 0"/><path d="M13 16l2 0"/>
+      </svg>
+    </div>
+    <div class="block-title">Questionário quantitativo</div>
+    <div class="block-sub">9 perguntas em 4 dimensões, em escala de favorabilidade.</div>
+  </div>
+
+  <div class="flow-connector">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+  </div>
+
+  <div class="block">
+    <div class="block-icon green">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+        <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+        <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+        <path d="M4 20h14"/>
+      </svg>
+    </div>
+    <div class="block-title">e-NPS</div>
+    <div class="block-sub">Mede o quanto os Yandecos recomendam a empresa.</div>
+  </div>
+
+  <div class="flow-connector">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M12 5v14M5 12h14"/>
+    </svg>
+  </div>
+
+  <div class="block">
+    <div class="block-icon purple">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
+      </svg>
+    </div>
+    <div class="block-title">Grupos focais</div>
+    <div class="block-sub">21 bate-papos para aprofundar os porquês dos números.</div>
+  </div>
+
+</div>
+
+  <div class="card" style="margin-bottom:20px;">
     <div class="dim-tabs" id="dim-tabs">
       <div class="dim-tab active" onclick="showDim('lideranca', this)">Alta Liderança</div>
       <div class="dim-tab" onclick="showDim('desempenho', this)">Desempenho</div>
       <div class="dim-tab" onclick="showDim('comunicacao', this)">Comunicação</div>
       <div class="dim-tab" onclick="showDim('pessoas', this)">Pessoas e Cultura</div>
-      <div class="dim-tab" onclick="showDim('enps', this)">e-NPS</div>
     </div>
     <div class="dim-panel active" id="dim-panel-lideranca">
       <ul style="list-style:none;padding:0;">
@@ -1367,23 +1560,31 @@ header {
         <li style="padding:10px 0;font-size:15px;color:var(--text-2);line-height:1.6;">O time de Pessoas & Cultura fornece orientações claras, apoia nas demandas do dia a dia e atua com iniciativa na condução dos temas.</li>
       </ul>
     </div>
-    <div class="dim-panel" id="dim-panel-enps">
-      <ul style="list-style:none;padding:0;">
-        <li style="padding:10px 0;font-size:15px;color:var(--text-2);line-height:1.6;">Eu indico a Yandeh como um bom lugar para se trabalhar.</li>
-      </ul>
-    </div>
   </div>
 
-    <div class="context-box" style="margin-bottom:28px;">
+      <div class="context-box" style="margin-bottom:20px;">
+       <div class="section-head" style="color: var(--text);
+  font-weight: 700;
+  font-size: 18px; ">
+        <p>e-NPS</p></div>
+    <p>Eu indico a Yandeh como um bom lugar para se trabalhar.</p>
+    <p>Score e-NPS = %promotores - %detratores</p>
+  </div>
+
+    <div class="context-box" style="margin-bottom:20px;">
        <div class="section-head" style="color: var(--text);
   font-weight: 700;
   font-size: 18px; ">
         <p>Focus Group</p></div>
-    <p>Além da pesquisa, foram realizados bate-papos com todos os colaboradores das áreas, com o objetivo de entender em profundidade a queda nos pontos de e-NPS e mapear a dimensão mais crítica e a mais forte apontadas pela pesquisa.</p>
+    <p>Além da pesquisa, foram realizados 21 bate-papos, englobando todos os Yandecos das áreas. O objetivo foi entender em profundidade a queda nos pontos de e-NPS e mapear a dimensão mais crítica e a mais forte apontadas pela pesquisa.</p>
     <p>Os resultados foram compartilhados previamente com todas as lideranças, em um bate-papo inicial sobre os possíveis fatores que influenciaram as respostas dos times.</p>
   </div>
 
-  <div class="grid-3" style="margin-bottom:28px;">
+   <div class="section-head">
+     <h3 style="font-size: 30px;">Overview Quantitativo</h3>
+    </div>
+
+  <div class="grid-3" style="margin-bottom:20px;">
     <div class="stat-card">
       <div class="stat-label">e-NPS Geral</div>
       <div class="stat-value" style="color:var(--text);">43,3</div>
@@ -1405,57 +1606,8 @@ header {
     </div>
   </div>
 
-  <div class="section-head"><h3>Favorabilidade por Dimensão</h3><p>Comparativo 2026 vs 2025</p></div>
-  <div class="card" style="margin-bottom:20px;">
-    <table class="pulse-table">
-      <thead>
-        <tr>
-          <th>Dimensão</th>
-          <th>2026</th>
-          <th>2025</th>
-          <th>Variação</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="area-name">Alta Liderança</td>
-          <td><span class="cell-score fav">86%</span></td>
-          <td class="cell-prev">77%</td>
-          <td><span class="cell-arrow up">▲ +9 p.p.</span></td>
-          <td><span class="badge badge-blue">Favorável</span></td>
-        </tr>
-        <tr>
-          <td class="area-name">Desempenho</td>
-          <td><span class="cell-score very-fav">92%</span></td>
-          <td class="cell-prev">-</td>
-          <td><span class="cell-arrow neutral" style="color:var(--text-3)">Sem comparativo</span></td>
-          <td><span class="badge badge-green">Muito favorável</span></td>
-        </tr>
-        <tr>
-          <td class="area-name">Comunicação</td>
-          <td><span class="cell-score fav">89%</span></td>
-          <td class="cell-prev">-</td>
-          <td><span class="cell-arrow neutral" style="color:var(--text-3)">Sem comparativo</span></td>
-          <td><span class="badge badge-blue">Favorável</span></td>
-        </tr>
-        <tr>
-          <td class="area-name">Pessoas e Cultura</td>
-          <td><span class="cell-score fav">79%</span></td>
-          <td class="cell-prev">77%</td>
-          <td><span class="cell-arrow up">▲ +2 p.p.</span></td>
-          <td><span class="badge badge-yellow">Atenção</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="margin-top:12px;font-size:13px;color:var(--text-3);display:flex;gap:16px;flex-wrap:wrap;">
-      <span>🟢 Acima de 90%, muito favorável</span>
-      <span>🔵 75 a 89%, favorável</span>
-      <span>🔴 Abaixo de 75%, desfavorável</span>
-    </div>
-  </div>
-
-  <div class="section-head"><h3>Participação por Área</h3></div>
+ <div class="section-head">
+  <h3>Participação por Área</h3></div>
   <div class="card">
     <div class="part-row">
       <div class="part-name">Business Solutions</div>
@@ -1501,37 +1653,89 @@ header {
     </div>
   </div>
 
+
+  <div class="section-head" style="margin-top:20px;">
+    <h3>Favorabilidade por Dimensão</h3><p>Comparativo 2026 vs 2025</p></div>
+  <div class="card" style="margin-bottom:20px;">
+    <table class="pulse-table">
+      <thead>
+        <tr>
+          <th>Dimensão</th>
+          <th>2026</th>
+          <th>2025</th>
+          <th>Variação</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="area-name">Alta Liderança</td>
+          <td><span class="cell-score fav">86%</span></td>
+          <td class="cell-prev">77%</td>
+          <td><span class="cell-arrow up">▲ +9 p.p.</span></td>
+          <td><span class="badge badge-blue">Favorável</span></td>
+        </tr>
+        <tr>
+          <td class="area-name">Desempenho</td>
+          <td><span class="cell-score very-fav">92%</span></td>
+          <td class="cell-prev">-</td>
+          <td><span class="cell-arrow neutral" style="color:var(--text-3)">Sem comparativo</span></td>
+          <td><span class="badge badge-green">Muito favorável</span></td>
+        </tr>
+        <tr>
+          <td class="area-name">Comunicação</td>
+          <td><span class="cell-score fav">89%</span></td>
+          <td class="cell-prev">-</td>
+          <td><span class="cell-arrow neutral" style="color:var(--text-3)">Sem comparativo</span></td>
+          <td><span class="badge badge-blue">Favorável</span></td>
+        </tr>
+        <tr>
+          <td class="area-name">Pessoas e Cultura</td>
+          <td><span class="cell-score fav">79%</span></td>
+          <td class="cell-prev">77%</td>
+          <td><span class="cell-arrow up">▲ +2 p.p.</span></td>
+          <td><span class="badge badge-yellow">Atenção</span></td>
+        </tr>
+      </tbody>
+    </table>    
+    <div style="margin-top:12px;font-size:13px;color:var(--text-3);display:flex;gap:16px;flex-wrap:wrap;">
+      <span>🟢 Acima de 90%, muito favorável</span>
+      <span>🔵 75 a 89%, favorável</span>
+      <span>🔴 Abaixo de 75%, desfavorável</span>
+    </div>
+  </div>
+
   <div class="page-nav">
-    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Forças →</button>
+    <button class="btn-next" onclick="nextPage()"><span class="next-label">Próxima ·</span> Quantitativo →</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════
-     PAGE 03 — FORÇAS
+     PAGE 03 — QUANTITATIVO
 ══════════════════════════════════════ -->
 <div id="page-forcas" class="page">
-  <h1 class="page-title">O que os números <em>mostram</em></h1>
-  <p class="page-sub">Dimensões e áreas acima da média, referências a preservar. Atenção ao paradoxo: a favorabilidade alta convive com um e-NPS em queda.</p>
+  <h1 class="page-title">Resultados <em>quantitativos</em></h1>
+  <p class="page-sub">Resultados acima da média em dimensões-chave, com pontos fortes a preservar. Ainda assim, o e-NPS recua apesar da alta favorabilidade.</p>
 
   <div class="grid-3" style="margin-bottom:16px;">
     <div class="risk-card monitor" style="border-top-color:var(--green)">
       <div class="risk-title">Alta Liderança, 86%</div>
       <div class="risk-metric">Maior ganho do ciclo - +9 p.p. vs 2025 · </div>
-      <div class="risk-desc">Confiança nas decisões estratégicas cresceu expressivamente. Alta liderança percebida como acessível e decisiva. Benchmarks internos: P&C (96%), Tech Solutions (90%), Abasteceshop (89%).</div>
+      <div class="risk-desc">Confiança nas decisões estratégicas cresceu expressivamente. Alta liderança percebida como acessível e decisiva.</div>
     </div>
     <div class="risk-card monitor" style="border-top-color:var(--green)">
       <div class="risk-title">Desempenho, 92%</div>
       <div class="risk-metric">Dimensão mais forte - Acima de 90%</div>
-      <div class="risk-desc">Colaboradores entendem como seu trabalho impacta as metas da Yandeh. P&C atingiu 100% na dimensão; Finanças, 100% em "impacto nas metas".</div>
+      <div class="risk-desc">Yandecos entendem como seu trabalho impacta as metas da Yandeh.</div>
     </div>
     <div class="risk-card monitor" style="border-top-color:var(--green)">
       <div class="risk-title">Comunicação, 89%</div>
-      <div class="risk-metric">Rituais bem avaliados - Finanças e P&C 100%</div>
-      <div class="risk-desc">YH Junto! e Summit funcionam como âncoras de alinhamento estratégico. Colaboradores se sentem conectados ao posicionamento da empresa.</div>
+      <div class="risk-metric">Rituais bem avaliados por todos os times</div>
+      <div class="risk-desc">YH Junto! e Summit funcionam como âncoras de alinhamento estratégico. Yandecos se sentem conectados ao posicionamento da empresa.</div>
     </div>
   </div>
 
-  <div class="section-head" style="margin-top:28px;"><h3>Pergunta: Você indicaria a Yandeh como um bom lugar para trabalhar?</h3></div>
+  <div class="section-head" style="margin-top:20px;"><h3>e-NPS: Você indicaria a Yandeh como um bom lugar para trabalhar?</h3></div>
   <div class="card">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;font-size:13px;color:var(--text-3);">
       <span>e-NPS por Área, Comparativo</span>
@@ -1546,48 +1750,96 @@ header {
       <div class="enps-score">43,3</div>
       <div class="enps-segments"><div class="seg-p" style="width:59%"></div><div class="seg-n" style="width:26%"></div><div class="seg-d" style="width:15%"></div></div>
       <div class="enps-prev">▼ 5,8 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">208 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">123</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">54</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">31</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">P&C</div>
       <div class="enps-score" style="color:var(--green)">89</div>
       <div class="enps-segments"><div class="seg-p" style="width:89%"></div><div class="seg-n" style="width:11%"></div><div class="seg-d" style="width:0%"></div></div>
       <div class="enps-prev">▲ +18 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">9 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">8</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">1</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">0</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Tech Solutions</div>
       <div class="enps-score" style="color:var(--green)">58</div>
       <div class="enps-segments"><div class="seg-p" style="width:64%"></div><div class="seg-n" style="width:30%"></div><div class="seg-d" style="width:6%"></div></div>
       <div class="enps-prev">▼ -2 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">62 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">40</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">18</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">4</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Abasteceshop</div>
       <div class="enps-score" style="color:var(--green)">56</div>
       <div class="enps-segments"><div class="seg-p" style="width:65%"></div><div class="seg-n" style="width:26%"></div><div class="seg-d" style="width:9%"></div></div>
       <div class="enps-prev">▲ +3 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">34 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">22</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">9</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">3</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Finanças</div>
       <div class="enps-score" style="color:var(--yellow)">29</div>
       <div class="enps-segments"><div class="seg-p" style="width:50%"></div><div class="seg-n" style="width:29%"></div><div class="seg-d" style="width:21%"></div></div>
       <div class="enps-prev">▲ +16 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">14 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">7</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">4</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">3</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Girotrade</div>
       <div class="enps-score" style="color:var(--yellow)">31</div>
       <div class="enps-segments"><div class="seg-p" style="width:58%"></div><div class="seg-n" style="width:15%"></div><div class="seg-d" style="width:27%"></div></div>
       <div class="enps-prev">▼ -19 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">26 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">15</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">4</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">7</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Girotrade CD</div>
       <div class="enps-score" style="color:var(--yellow)">30</div>
       <div class="enps-segments"><div class="seg-p" style="width:54%"></div><div class="seg-n" style="width:22%"></div><div class="seg-d" style="width:24%"></div></div>
       <div class="enps-prev">▼ -3 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">50 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">27</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">11</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">12</span></div>
+      </div>
     </div>
     <div class="enps-row">
       <div class="enps-name">Business Solutions</div>
       <div class="enps-score" style="color:var(--red)">8</div>
       <div class="enps-segments"><div class="seg-p" style="width:31%"></div><div class="seg-n" style="width:46%"></div><div class="seg-d" style="width:23%"></div></div>
       <div class="enps-prev">▼ -23 pts</div>
+      <div class="enps-tooltip">
+        <div class="enps-tt-head">13 respondentes</div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#1A7840"></span>Promotores<span class="enps-tt-num">4</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#E0E0DC"></span>Neutros<span class="enps-tt-num">6</span></div>
+        <div class="enps-tt-line"><span class="enps-tt-dot" style="background:#C42020"></span>Detratores<span class="enps-tt-num">3</span></div>
+      </div>
     </div>
   </div>
 
@@ -1600,15 +1852,15 @@ header {
      PAGE 04 — QUALITATIVO
 ══════════════════════════════════════ -->
 <div id="page-qualitativo" class="page">
-  <h1 class="page-title">O que os focus groups <em>revelaram</em></h1>
-  <p class="page-sub">Bate-papos realizados com todas as áreas após a Pulse para aprofundar percepções qualitativas.</p>
+  <h1 class="page-title">Insights <em>qualitativos</em></h1>
+  <p class="page-sub">Bate-papos realizados com todas as áreas após a Pulse para aprofundar percepções dos yandecos.</p>
 
  <!-- ── PADRÕES TRANSVERSAIS ── -->
 
 <div class="section-divider" style="margin-top:0;">
   <div class="section-label">Leitura Organizacional</div>
-  <h2>5 padrões que se repetem <em>entre as áreas</em></h2>
-  <p>Os números mostram dores locais. O qualitativo revela temas estruturais compartilhados.</p>
+  <h2>5 pontos de melhoria que se repetem <em>entre as áreas</em></h2>
+  <p>Os números mostram percepções pontuais. O qualitativo revela temas estruturais de forma mais aprofundada.</p>
 </div>
 
 <div class="insight-grid" style="grid-column: span 1;">
@@ -1624,17 +1876,10 @@ header {
 </div>
 
 <div class="insight-tags">
-  <span class="insight-tag">Comunicação</span>
-  <span class="insight-tag">Contexto estratégico</span>
-  <span class="insight-tag">Cascateamento</span>
+  <span class="insight-tag">Todas as B.U.s</span>
 </div>
-
-
   </div>
-
   <div class="insight-card">
-
-
 <div class="insight-number">02</div>
 <div class="insight-title">Gestão e Priorização</div>
 
@@ -1644,9 +1889,7 @@ header {
 </div>
 
 <div class="insight-tags">
-  <span class="insight-tag">Priorização</span>
-  <span class="insight-tag">Retrabalho</span>
-  <span class="insight-tag">Previsibilidade</span>
+  <span class="insight-tag">Foco em Tech Solutions</span>
 </div>
 
 
@@ -1656,17 +1899,15 @@ header {
 
 
 <div class="insight-number">03</div>
-<div class="insight-title">Conexão entre Liderança e Operação</div>
+<div class="insight-title">Conexão com a Alta Liderança</div>
 
 <div class="insight-body">
-  <span class="insight-lead">A liderança direta é bem avaliada; a executiva, percebida como distante.</span>
+  <span class="insight-lead">A liderança direta é bem avaliada; a alta liderança é percebida como distante.</span>
   O gap está entre as decisões executivas e o dia a dia dos times. Falta presença, visibilidade das decisões e alinhamento entre os níveis de liderança.
 </div>
 
 <div class="insight-tags">
-  <span class="insight-tag">Alta Liderança</span>
-  <span class="insight-tag">Presença</span>
-  <span class="insight-tag">Alinhamento</span>
+  <span class="insight-tag">Foco em Tech Solutions</span>
 </div>
 
 
@@ -1675,7 +1916,7 @@ header {
   <div class="insight-card">
 
 <div class="insight-number">04</div>
-<div class="insight-title">Desenvolvimento e Desdobramento da AVD</div>
+<div class="insight-title">Desenvolvimento</div>
 
 <div class="insight-body">
   <span class="insight-lead">O problema não é a avaliação, é a devolutiva.</span>
@@ -1683,10 +1924,7 @@ header {
 </div>
 
 <div class="insight-tags">
-  <span class="insight-tag">AVD</span>
-  <span class="insight-tag">Devolutiva</span>
-  <span class="insight-tag">Desenvolvimento</span>
-  <span class="insight-tag">Evolução</span>
+  <span class="insight-tag">Todas as B.U.s</span>
 </div>
 
   </div>
@@ -1701,10 +1939,7 @@ header {
 </div>
 
 <div class="insight-tags">
-  <span class="insight-tag">Integração</span>
-  <span class="insight-tag">Colaboração</span>
-  <span class="insight-tag">Sinergia</span>
-  <span class="insight-tag">Retrabalho</span>
+  <span class="insight-tag">Foco em Tech Solutions</span>
 </div>
 
 
@@ -1735,11 +1970,11 @@ header {
     <div class="action-block">
       <h4>01 · Comunicação <span style="font-weight:400;color:var(--text-3);font-size:13px;margin-left:6px;">Dor transversal · Todas as áreas</span></h4>
       <div class="plan-item">
-        <p>Protocolo institucional para comunicação de mudanças relevantes.</p>
+        <p>Estruturar protocolo institucional para comunicação de mudanças organizacionais relevantes.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
       <div class="plan-item">
-        <p>Contextualização do YH Junto! de forma menos técnica e mais prática.</p>
+        <p>Cascatear estratégia do fechamento do mês de forma mais estruturada, com foco nos próximos passos.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
     </div>
@@ -1751,11 +1986,11 @@ header {
         <div class="owners"><span class="status status-planejado">Planejado</span></div>
       </div>
       <div class="plan-item">
-        <p>Reforçar obrigatoriedade de devolutiva individual após o ciclo.</p>
+        <p>Ampliar modelos de devolutiva de AVD e ferramentas para realização de ciclos de feedback.</p>
         <div class="owners"><span class="status status-planejado">Planejado</span></div>
       </div>
       <div class="plan-item">
-        <p>Consolidar PDI como principal instrumento para plano de carreira.</p>
+        <p>Consolidar PDI como principal instrumento para plano de carreira, ampliando insturmentos de como cria-lo para fortalecer o desenvolvimento profissional individual.</p>
         <div class="owners"><span class="status status-planejado">Planejado</span></div>
       </div>
     </div>
@@ -1763,17 +1998,13 @@ header {
     <div class="action-block">
       <h4>03 · Sinergia entre áreas <span style="font-weight:400;color:var(--text-3);font-size:13px;margin-left:6px;">Silos e colaboração</span></h4>
       <div class="plan-item">
-        <p>Promover fóruns para troca e ampliação de conhecimento entre áreas.</p>
-        <div class="owners"><span class="status status-planejado">Planejado</span></div>
-      </div>
-      <div class="plan-item">
-        <p>Material de mapeamento de áreas (quem faz o quê, quem acionar).</p>
+        <p>Aumentar clareza sobre papéis, responsabilidades e interfaces entre áreas por meio de um mapa de áreas.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
     </div>
 
     <div class="action-block">
-      <h4>04 · Desenvolvimentos e Treinamentos <span style="font-weight:400;color:var(--text-3);font-size:13px;margin-left:6px;">Programas de desenvolvimento</span></h4>
+      <h4>04 · Evolução das trilhas de Treinamento <span style="font-weight:400;color:var(--text-3);font-size:13px;margin-left:6px;">Programas de desenvolvimento</span></h4>
       <div class="plan-item">
         <p><strong>Tech Journey</strong> — programa de desenvolvimento para Tech, reformulado para 2026.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
@@ -1786,12 +2017,20 @@ header {
         <p><strong>Impulsionar</strong> — redefinido e organizado por área, com diagnósticos e multiplicadores internos.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
+     <div class="plan-item">
+        <p><strong>Lider Y</strong> — reestruturação do programade lideranças, com foco em cascateamento estratégico e fortalcimento dos papéis de liderança</p>
+        <div class="owners"><span class="status status-andamento">Em andamento</span></div>
+      </div>
+            <div class="plan-item">
+        <p><strong>Key Talents</strong> — foco em retenção e valorização de talentos, programa com foco em engajamento de pessoas chave para a Yandeh.</p>
+        <div class="owners"><span class="status status-andamento">Em andamento</span></div>
+      </div>
     </div>
 
     <div class="action-block">
       <h4>05 · Detratores e riscos de engajamento <span style="font-weight:400;color:var(--text-3);font-size:13px;margin-left:6px;">e-NPS em queda</span></h4>
       <div class="plan-item">
-        <p>Conversas individuais com detratores conduzidas com rapidez para entender causas e definir próximos passos.</p>
+        <p>Estruturar rituais de escuta e acompanhamento para antecipar riscos de desengajamento e apoiar planos de ação direcionados a yandecos pouco engajados.</p>
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
     </div>
@@ -1803,11 +2042,11 @@ header {
         <div class="owners"><span class="status status-andamento">Em andamento</span></div>
       </div>
       <div class="plan-item">
-        <p>Promover treinamentos de organização de demandas (Kanban, metodologias ágeis).</p>
+        <p>Definir metodologia prática   de priorização e gestão do fluxo de trabalho para reduzir sobrecarga e aumentar foco.</p>
         <div class="owners"><span class="status status-planejado">Planejado</span></div>
       </div>
       <div class="plan-item">
-        <p>Envolver e desenvolver a alta liderança (Weslley e Bueno) como símbolos da área.</p>
+        <p>Envolver e desenvolver a alta liderança (Weslley e Bueno) como símbolos de liderança de Tech Solutions.</p>
         <div class="owners"><span class="status status-planejado">Planejado</span></div>
       </div>
     </div>
